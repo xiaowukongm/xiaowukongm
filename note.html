@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>笔记</title>
+</head>
+<body>
+1、input表单的输入框的双向绑定
+>>为form表单绑定数据对象   ：model="loginForm"
+>>为表单对象字段进行双向数据绑定    v-model="loginForm.username"
+>>密码框type="password"
+
+2、Form表单的数据验证功能
+>>为form表单绑定rules :rules="loginFormRules"
+>>定义rules,并制定相应的校验属性（username，password）
+>>为需要验证的el-form-item指定验证规则   prop="username"
+
+3、Form表单的重置功能
+>>为Form表单添加ref属性值，这个值就是from表单的实例对象
+>>methods中调用Form实例对象的resetFields()方法
+
+4、Form表单的预验证功能
+>>methods中调用Form实例对象的validate()方法
+>>箭头函数，省去function以及()
+
+5、Django后端接口vue前端调用不到
+>>错误信息：Method Not Allowed (OPTIONS): /login/ 跨域问题，
+  方法：①从Django后端解决方法
+  https://segmentfault.com/a/1190000017952184?utm_source=tag-newest
+
+
+
+6、Django后端的post方法，调用报错
+>>错误信息："You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SL
+  方法：请求地址没有以 '/' 结尾
+
+>>错误信息：“Forbidden (CSRF cookie not set.)”
+  修改settings.py文件，注释掉
+  django.middleware.csrf.CsrfViewMiddleware',
+
+7、axios无法post传递参数给Django后端
+>>方法：通过qs将序列化字符串，处理发送请求的参数
+  在main.js添加全局引用
+    import qs from 'qs';
+    Vue.prototype.qs = qs;
+
+  在单页面中使用：this.qs.stringify(this.loginForm)
+
+8、element-UI Message全局弹框组件
+  main.js中导入，并全局定义
+  import {Message} from 'element-ui'
+  Vue.prototype.$message = Message
+
+9、登录成功保存token，页面跳转
+  token就是后端传给前端的一个值，前端将其保存到当前会话中。window.sessionStorage.setItem("token","")
+  sessionStorage和localStorage的区别：当前会话
+  页面跳转：this.$router.push("/home")
+
+10、路由导航守卫控制页面访问权限
+  route.js中添加
+  router.beforeEach(to,from,next=>{})
+
+11、登录退出
+  销毁sessionStorage中的token,并重定向到登录页
+  window.sessionStorage.clear()
+
+12、
+</body>
+</html>
