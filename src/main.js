@@ -21,7 +21,11 @@ Vue.prototype.$http = axios
 
 //配置请求的根路径
 axios.defaults.baseURL = "http://127.0.0.1:9000/";
-// Vue.prototype.$qs = qs;
+axios.interceptors.request.use(config =>{
+  config.headers.Authorization = window.sessionStorage.getItem("token")
+  // 必须return config
+  return config
+})
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
