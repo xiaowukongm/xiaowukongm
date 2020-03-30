@@ -105,9 +105,43 @@ https://blog.csdn.net/u011644473/article/details/52088105
     ②为菜单index绑定唯一属性值id
     <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
 
+20、element-ui的相关参数
+      active-text-color、unique-opened
+
+21、菜单水平折叠展开
+    collapse
+    根据collapse动态改变菜单栏的宽度
+    :width="isCollapse ? '64px':'200px'"  三元运算符（判断条件在前面）
+    折叠动画取消：collapse-transition
+
+22、子路由相当于在父页面中嵌套一个iframe,实现页面的局部刷新
+    父组件中添加路由占位符<router-view></router-view>
+    子路由不带“/”，则自动会在父路由后面追加子路由
+    如果需要重定向，子路由要加“/”
+
+23、菜单栏激活路由模式
+    el-menu中添加router参数，点击导航时，会以index作为path进行路由跳转
+
+24、打开菜单不高亮显示的问题解决思路
+    为每个二级菜单添加click事件，事件功能：每次点击将菜单的index保存到sessionStorage中
+    然后给el-menu的属性default-active绑定activePath值，这样可以动态改变default-active，而且即使刷新页面也不会有问题
+    注意：vue在created时就要给activePath赋值，点击时修改完activePath也要赋值
+
+25、面包屑导航
+    <el-breadcrumb>
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    </el-breadcrumb>
+
+26、卡片容器:将信息聚合在卡片容器中展示
+    <el-card class="box-card"></el-card>
+
+27、24分栏布局
+    <el-row :gutter="20">
+      <el-col :span="6"></el-col>
+    </el-row>
+    row参数：gutter（栅格间隔）、type(可选flex布局)、justify(flex布局下的水平排列方式)、align(flex布局下的垂直排列方式)
+    col参数：span（栅格占据的列数）
 
 
-
-18、
 </body>
 </html>

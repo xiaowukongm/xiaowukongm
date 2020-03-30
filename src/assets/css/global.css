@@ -4,3 +4,8 @@ html,body,#app{
   margin:0;
   padding:0
 }
+
+/*面包屑*/
+.el-breadcrumb{
+  margin-bottom: 15px;
+}
