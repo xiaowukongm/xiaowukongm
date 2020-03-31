@@ -6,6 +6,7 @@
     <title>笔记</title>
 </head>
 <body>
+VUE：
 1、input表单的输入框的双向绑定
 >>
 >>为form表单绑定数据对象   ：model="loginForm"
@@ -142,6 +143,34 @@ https://blog.csdn.net/u011644473/article/details/52088105
     row参数：gutter（栅格间隔）、type(可选flex布局)、justify(flex布局下的水平排列方式)、align(flex布局下的垂直排列方式)
     col参数：span（栅格占据的列数）
 
+28、el-table组件
+      data属性绑定数据源：<el-table border :data="userList" stripe style="width: 100%">
+      column使用prop绑定字段：<el-table-column prop="role_name" label="角色">
+      type为index(索引)，expand(可展开按钮)：<el-table-column type="index" label="#">
 
+29、 插槽slot：占位置方便以后扩展
+    具名插槽：为slot标签指定name属性，替换内容标签中要指定slot="插槽name"
+    作用域插槽：v-slot,父组件想要替换插槽标签，但又想使用插槽中的数据
+
+      子组件：
+      <slot name="todo" :user="user">{{ user.lastName }}</slot>
+      父组件：
+      新版写法：v-slot合并了slot一级slot-scope属性
+      <template v-slot:todo="slotProps" >{{slotProps.user.firstName}}</template>
+
+30、el-table中使用作用域插槽，scope.row可以获取到本行数据
+
+
+
+
+========================================================================================
+Django：
+1、Paginator分页组件的使用
+  paginator = Paginator(user_list, pagesize)  创建分页对象
+  paginator.page(pagenum)  对分页数据进行取值
+
+  注意：不能json格式化的问题的解决方法：
+      先将queryset对象（user_list）转化为list，再将page对象转化为list,这样就可以json.dumps()
+      查询时使用queryset的all()和values()指定想要查询得到字段
 </body>
 </html>
