@@ -31,17 +31,27 @@
         </el-table-column>
         <el-table-column label="状态">
           <template v-slot="scope">
-            <el-switch v-model="scope.row.mg_state"></el-switch>
+            <el-switch v-model="scope.row.mg_state" @change="userStateChanged(scope.row)"></el-switch>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template v-slot="scope">
-            <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
-            <el-button type="warning" icon="el-icon-edit" size="mini"></el-button>
-            <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+            <el-tooltip class="item" effect="dark" content="添加" :enterable="false"	placement="top-start">
+              <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="编辑" :enterable="false" placement="top-start">
+              <el-button type="warning" icon="el-icon-edit" size="mini"></el-button>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="删除" :enterable="false" placement="top-start">
+              <el-button type="danger" icon="el-icon-delete" size="mini"></el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                     :current-page.sync="queryParams.pagenum" :page-sizes="[3, 5, 10, 15]"
+                     :page-size="queryParams.pagesize" layout="total,sizes, prev, pager,jumper" :total="total">
+      </el-pagination>
     </el-card>
   </div>
 </template>
@@ -58,7 +68,9 @@
               pagesize:3,
             },
             //用户数据列表
-            userList:[]
+            userList:[],
+            // 总数
+            total:0,
           }
       },
       created() {
@@ -69,7 +81,26 @@
           this.$http.get("users",{params:this.queryParams})
           .then(response=>{
             this.userList = response.data.users
-            // console.log(response.data.users)
+            this.total = response.data.total
+          })
+        },
+        // 每页显示总数改变时
+        handleSizeChange(newSize){
+          this.queryParams.pagesize = newSize
+          this.getUserList()
+        },
+        // 页码发生变化时
+        handleCurrentChange(newPage){
+          this.queryParams.pagenum = newPage
+          this.getUserList()
+        },
+        // 更新用户状态
+        userStateChanged(userinfo){
+          this.$http.get(`update_user_state?id=${userinfo.id}&state=${userinfo.mg_state}`)
+          .catch(error=>{
+            console.log(error)
+            userinfo.mg_state = !userinfo.mg_state
+              return this.$message.error("更新用户状态失败！")
           })
         }
       }
@@ -80,5 +111,8 @@
 .el-table{
   margin-top: 20px;
   font-size: 13px;
+}
+.el-pagination{
+  margin-top: 20px;
 }
 </style>

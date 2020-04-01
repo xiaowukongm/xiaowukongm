@@ -160,7 +160,12 @@ https://blog.csdn.net/u011644473/article/details/52088105
 
 30、el-table中使用作用域插槽，scope.row可以获取到本行数据
 
+31、使用el-pagination组件对数据进行分页，调整页面页码以及显示条数，重新拼装参数进行请求
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                   :current-page.sync="queryParams.pagenum" :page-sizes="[3, 5, 10, 15]"
+                   :page-size="queryParams.pagesize" layout="total,sizes, prev, pager,jumper" :total="total">
 
+32、为el-switch添加change事件，更新用户状态
 
 
 ========================================================================================
