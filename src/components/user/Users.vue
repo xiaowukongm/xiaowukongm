@@ -45,6 +45,9 @@
             <el-tooltip class="item" effect="dark" content="删除" :enterable="false" placement="top-start">
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
             </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="ceshi" :enterable="false" placement="top-start">
+              <el-button type="danger" icon="el-icon-delete" size="mini" @click="test"></el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
@@ -292,8 +295,15 @@
           }).catch(()=>{
             this.$message.info("已取消删除操作！")
           })
-        }
+        },
 
+        // ceshi
+        test(){
+          this.$http.get("get_premission_list/")
+            .then(res=>{
+              console.log(res.data)
+            })
+        }
       }
     }
 </script>
