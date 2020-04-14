@@ -18,7 +18,7 @@ Vue.prototype.$message = Message
 // 导入axios
 import axios from 'axios'
 Vue.prototype.$http = axios
-
+axios.defaults.withCredentials = true
 //配置请求的根路径
 axios.defaults.baseURL = "http://127.0.0.1:9000/";
 axios.interceptors.request.use(config =>{

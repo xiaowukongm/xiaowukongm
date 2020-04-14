@@ -180,6 +180,9 @@ https://blog.csdn.net/u011644473/article/details/52088105
       新版写法：v-slot合并了slot一级slot-scope属性
       <template v-slot:todo="slotProps" >{{slotProps.user.firstName}}</template>
 
+      什么时候用作用域插槽？当某个地方的需要用到父模板的数据去做调用函数的入参时，可以使用作用域插槽
+
+
 30、el-table中使用作用域插槽，scope.row可以获取到本行数据
 
 31、使用el-pagination组件对数据进行分页，调整页面页码以及显示条数，重新拼装参数进行请求
@@ -221,5 +224,35 @@ Django：
   注意：不能json格式化的问题的解决方法：
       先将queryset对象（user_list）转化为list，再将page对象转化为list,这样就可以json.dumps()
       查询时使用queryset的all()和values()指定想要查询得到字段
+
+2、后台权限设计：
+    用户   角色  权限  权限action
+    权限action表中存的是权限id和权限action的对应关系
+
+3、Django Vue 前后端分离，Django后端session可以传到浏览器，单浏览器保存不到cookies中导致下一次请求Django后端获取不到session？
+    主要是跨域请求的问题
+    解决跨域问题：
+    前端：
+      Vue前端设置axiso请求时允许携带cookie：axios.defaults.withCredentials = true
+    后端：
+      Django使用django-cors-headers
+      'corsheaders.middleware.CorsMiddleware'
+
+    设置好后再次请求，发现还是不能保存cookie,浏览器请求参数中可以看到set-cookie提示samesite=lax的问题
+    问题解决方法：前后端项目的IP不一致，django启动的实127.0.0.1，vue项目启动的是localhost，将vue启动IP改为127.0.0.1即可
+
+4、python闭包以及装饰器的定义
+
+5、python可变对象（字典、列表）、不可变对象（字符串、数值、元组）
+        a = {1:[]}
+        b={}
+        b[2] = a
+        # 此时改变a中的值
+        a[1].append("hello")
+        此时b为： {2:{1:['hello']}}
+
+  直接赋值、浅拷贝和深拷贝  浅拷贝：拷贝父对象，不会拷贝对象的内部的子对象
+  值传递和引用传递
+
 </body>
 </html>
