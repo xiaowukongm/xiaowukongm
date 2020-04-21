@@ -94,6 +94,7 @@ https://blog.csdn.net/u011644473/article/details/52088105
 第一次安装git需要设置用户以及邮箱地址：xiaowukong <2363497179@qq.com>
 
 13、使用element-ui中的Container 布局容器来对首页进行布局
+    通过 row 和 col 组件进行栅栏布局
 
 14、flex布局
   display:flex
@@ -170,6 +171,18 @@ https://blog.csdn.net/u011644473/article/details/52088105
       column使用prop绑定字段：<el-table-column prop="role_name" label="角色">
       type为index(索引)，expand(可展开按钮)：<el-table-column type="index" label="#">
 
+      可展开列的使用：可展开列中存放一些需要展示的信息，例如下面展示的菜单名
+      <el-table-column type="expand">
+        <template v-slot="scope">
+          <el-row v-for="(item,i) in scope.row.children" :key="item.id" :class="['bdbottom',i==1 ? 'bdtop':'']">
+            <el-col :span="5">
+              <el-tag>{{item.authName}}</el-tag>
+            </el-col>
+          </el-row>
+        </template>
+      </el-table-column>
+
+
 29、 插槽slot：占位置方便以后扩展
     具名插槽：为slot标签指定name属性，替换内容标签中要指定slot="插槽name"
     作用域插槽：v-slot,父组件想要替换插槽标签，但又想使用插槽中的数据
@@ -183,8 +196,15 @@ https://blog.csdn.net/u011644473/article/details/52088105
       什么时候用作用域插槽？当某个地方的需要用到父模板的数据去做调用函数的入参时，可以使用作用域插槽
 
 
-30、el-table中使用作用域插槽，scope.row可以获取到本行数据
-
+30、el-table中使用作用域插槽，scope.row可以获取到本行数据，直接是不能获取到值当入参去调用函数
+    <el-table-column label="操作">
+        <template v-slot="scope">
+            <el-button type="primary" icon="el-icon-edit" @click="editRole(scope.row.id)">编辑</el-button>
+            <!-- @click="deleteRole(id)是获取不到id值的-->
+            <el-button type="primary" icon="el-icon-delete" @click="deleteRole(scope.row.id)">删除</el-button>
+            <el-button type="primary" icon="el-icon-setting" @click="seleteRole(scope.row.id)">分配权限</el-button>
+        </template>
+    </el-table-column>
 31、使用el-pagination组件对数据进行分页，调整页面页码以及显示条数，重新拼装参数进行请求
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                    :current-page.sync="queryParams.pagenum" :page-sizes="[3, 5, 10, 15]"

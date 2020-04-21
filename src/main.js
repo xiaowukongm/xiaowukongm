@@ -30,7 +30,11 @@ axios.interceptors.request.use(config =>{
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
+Vue.use(iView);
 /* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
