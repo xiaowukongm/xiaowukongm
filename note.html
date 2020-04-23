@@ -235,6 +235,22 @@ https://blog.csdn.net/u011644473/article/details/52088105
     .then(()=>{})
     .catch(()=>{})
 
+37、el-tree组件：
+  <el-tree ref="treeRef" :data="rightsList" :props="props" show-checkbox  node-key="id"  default-expand-all :default-checked-keys="defKeys">
+  </el-tree>
+    data：展示的数据
+    props：定义配置选项
+    props: {
+        // 指定节点显示为节点对象的某个属性值
+        label: 'authName',
+        // 指定子树为节点对象的某个属性值
+        children: 'children'
+    },
+    show-checkbox：节点是否可被选择
+    node-key：每个树节点用来作为唯一标识的属性，
+    default-expand-all：默认展开全部树
+    default-checked-keys：默认勾选节点列表，为node-key组成的列表
+
 
 ========================================================================================
 Django：
